@@ -1,0 +1,226 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$businessRisk-primary: mat.define-palette(mat.$indigo-palette);
+$businessRisk-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$businessRisk-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$businessRisk-theme: mat.define-light-theme((
+  color: (
+    primary: $businessRisk-primary,
+    accent: $businessRisk-accent,
+    warn: $businessRisk-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($businessRisk-theme);
+
+/* You can add global styles to this file, and also import other style files */
+@import '@angular/material/prebuilt-themes/pink-bluegrey.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// Login Colors
+$tbr-login-bg: #f8971f;
+$tbr-login-text: white;
+
+// Primary Colors
+$tbr-primary-1: #4d809c;
+$tbr-primary-2: #346e8e;
+$tbr-primary-3: #1a5c80;
+$tbr-primary-4: #014a72;
+
+// Secondary Colors
+$tbr-secondary-1: #f8d4a7;
+$tbr-secondary-2: #fabe75;
+$tbr-secondary-3: #f8a642;
+$tbr-secondary-4: #f8971f;
+
+// Gray
+$tbr-gray-1: #ebecec;
+$tbr-gray-2: #adb2b4;
+$tbr-gray-3: #70787c;
+$tbr-gray-4: #475157;
+
+$tbr-gold: #f2b903;
+$tbr-bronze: #bc9003;
+
+$tbr-text: #333333;
+
+$tbr-success: #1aa086;
+$tbr-warning: #f2b903;
+$tbr-danger: #ff5f40;
+
+// SNACKBAR STYLING
+
+.mat-snack-bar-container {
+  color: $tbr-gray-1 !important;
+
+  .mat-simple-snackbar {
+    .mat-simple-snackbar-action {
+      button {
+        color: $tbr-gray-1 !important;
+
+      }
+    }
+  }
+}
+
+.success-snackbar{
+  background: $tbr-success;
+}
+
+// COLORS CLASSES
+.tbr-background-primary {
+  background-color: $tbr-primary-4 !important;
+}
+
+.tbr-background-secondary {
+  background-color: $tbr-secondary-4 !important;
+}
+
+.tbr-background-danger {
+  background-color: $tbr-danger !important;
+}
+
+.tbr-background-warning {
+  background-color: $tbr-warning !important;
+}
+
+.tbr-background-success {
+  background-color: $tbr-success !important;
+}
+
+.tbr-shadow {
+  box-shadow: 0 0 3px lighten($tbr-gray-2, 5);
+}
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+button.warn{
+    @apply bg-yellow-400 text-white
+}
+button.primary{
+    @apply bg-custom-primary text-white
+}
+
+a {
+  @apply cursor-pointer
+}
+
+.mat-select-panel {
+  margin-top: 35px;
+}
+
+.select-dropdown.mat-form-field-appearance-fill .mat-form-field-flex {
+  // @apply bg-transparent border border-white	border-solid rounded-lg
+  background-color: transparent;
+  // border: 1px solid #ccc;
+  // border-radius: 5px;
+}
+.select-dropdown .mat-form-field-underline {display: none;}
+
+
+@import 'ag-grid-community/styles/ag-grid.css';
+@import 'ag-grid-community/styles/ag-theme-alpine.css';
+
+// html, body {
+//    height: 100%;
+//    width: 100%;
+//    box-sizing: border-box;
+//    -webkit-overflow-scrolling: touch;
+// }
+
+.move-up .mat-form-field-infix {
+  display: inherit;
+}
+
+.customForm .mat-form-field-wrapper,
+.customForm .mat-form-field {
+  width: 100%;
+}
+.customForm .mat-form-field-appearance-fill .mat-form-field-flex {
+  padding: 0 10px !important;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: transparent;
+}
+.customForm .mat-form-field-underline {
+  display: none;
+}
+.customForm .mat-select-arrow-wrapper {
+  margin-top: 11px;
+}
+
+// ag grid look & feel better
+.ag-theme-alpine .ag-root-wrapper {
+  @apply border-0
+}
+
+.ag-theme-alpine .ag-header {
+  background-color: rgb(191 219 254);
+}
+
+.custom-mat-tab .mat-tab-label {
+  min-width: 100px;
+}
+
+
+/* grid styling */
+.ag-theme-alpine {
+  border: 1px solid #babfc7;
+  border-radius: 2px;
+  box-shadow: 0 0 3px #babfc0;
+}
+.ag-theme-alpine .ag-header {
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #babfc7;
+  height: 34px !important;
+  min-height: 34px !important;
+}
+.ag-theme-alpine .ag-header .ag-header-row {
+  height: 30px !important;
+}
+.ag-theme-alpine .ag-header .ag-header-cell-text {
+  color: #181d1f;
+  opacity: 0.75;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+/* grid styling */
+
+// Modal GLobal
+mat-dialog-container {
+  @apply rounded-xl;
+  padding: 0 !important;
+  overflow: hidden;
+  .header{
+    @apply flex items-center p-2 rounded-t bg-custom-secondary text-white;
+    .title{
+      @apply grow text-center text-xl mb-0 text-white uppercase
+    }
+  }
+}

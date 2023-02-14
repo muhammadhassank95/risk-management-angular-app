@@ -1,0 +1,19 @@
+<div class="legal-container flex flex-col px-4">
+  <!-- HEADER (BUTTON) -->
+  <div class="flex justify-end">
+    <span class="border-2 border-custom-secondary px-3 py-1 cursor-pointer text-custom-secondary rounded"
+      (click)="goToCommunity()">
+      <strong>HOME</strong>
+    </span>
+  </div>
+  <!-- TEXT AREA (IFRAME) -->
+  <div class="mask" *ngIf="loading">
+    <i class="pei pei-spinner"></i>
+  </div>
+  <iframe (load)="onLoad()" *ngIf="!isTerms" class="terms-box border-2 border-custom-secondary rounded-lg mt-3 "
+    src="https://app.termly.io/document/privacy-policy/2c8881c9-8405-45e3-ad4c-e2dfb266b091">
+  </iframe>
+  <iframe (load)="onLoad()" *ngIf="isTerms" class="terms-box border-2 border-custom-secondary rounded-lg mt-3 "
+    src="https://app.termly.io/document/terms-of-use-for-saas/2f9c0c42-e074-44f1-a97e-66de4525bb88">
+  </iframe>
+</div>

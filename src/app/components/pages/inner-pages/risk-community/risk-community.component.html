@@ -1,0 +1,26 @@
+<div class="flex flex-col px-4">
+    <span class="text-gray-400 border-b-2 w-full font-medium text-lg">
+        MY RISK COMMUNITIES
+    </span>
+    <div class="flex w-full justify-center">
+      <div class="flex flex-wrap mt-5 w-[1128px]">
+        <span
+            (click)="addSite()"
+            class="flex w-[250px] h-[50px] m-4 items-center text-gray-500 justify-center cursor-pointer"
+        ><mat-icon>add</mat-icon>
+        </span>
+        <div
+            *ngFor="let site of sitesList; let i = index"
+            [ngStyle]="{'background-color': colorGetter(i, site), 'color': fontColor}"
+            class="flex w-[250px] h-[50px] m-4 items-center justify-center rounded cursor-pointer uppercase text-lg font-medium shadow-lg"
+            (click)="selectSite(site)"
+          >{{site.name}}
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="sitesList?.length === 0" class="flex justify-center items-center">
+      PLEASE CREATE A NEW RISK COMMUNITY.
+    </div>
+
+</div>

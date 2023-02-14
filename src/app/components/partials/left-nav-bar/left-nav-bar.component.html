@@ -1,0 +1,29 @@
+<aside class="h-full" [ngClass]="{'w-20': !isIcons, 'w-50': isIcons}" aria-label="Sidebar">
+    <div class="overflow-y-auto h-full py-4 px-3 bg-custom-primary rounded-r-2xl flex flex-col justify-between">
+        <div>
+            <div class="py-4 text-center text-3xl text-white text-uppercase font-semibol uppercase">
+                <img [ngClass]="{'w-8 h-8': !isIcons, 'w-10 h10': isIcons}" class="inline-flex"
+                    src="/assets/images/logo.svg" alt="logo">
+            </div>
+            <ul class="space-y-2">
+                <li *ngFor="let navMenu of navBarMenuObj">
+                    <span (click)="navigateTo(navMenu.link)" title="{{ !isIcons ? navMenu.name : '' }}"
+                        class="flex items-center px-3 py-2 my-4 text-base font-normal text-white hover:text-custom-primary hover:rounded-3xl hover:bg-gray-100 cursor-pointer"
+                        [ngClass]="{ 'text-active rounded-3xl bg-gray-100': navMenu.active, 'w-[50px]': !isIcons }">
+                        <mat-icon>{{ navMenu.icon }}</mat-icon>
+                        <span *ngIf="isIcons" class="ml-3">{{navMenu.name}}</span>
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <div class="text-center text-white cursor-pointer">
+            <span (click)="showIconsOnly()">
+                <mat-icon *ngIf="!isIcons">chevron_right</mat-icon>
+                <span *ngIf="isIcons" class="flex items-center">
+                    <mat-icon>chevron_left</mat-icon>
+                    <span>Collapse</span>
+                </span>
+            </span>
+        </div>
+    </div>
+</aside>

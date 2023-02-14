@@ -1,0 +1,33 @@
+<!-- Modal content -->
+<div class="w-[1000px] bg-white ">
+  <!-- Modal header -->
+  <div class="header">
+    <div class="title">{{data.title}}</div>
+    <button (click)="closeModalClicked()" type="button" class="flex align-middle" data-modal-toggle="defaultModal">
+      <mat-icon matTooltip="Close Modal" class="text-white text-center" >close</mat-icon>
+    </button>
+  </div>
+  <!-- Modal body -->
+  <div class="p-6 space-y-6">
+    <form class="customForm" [formGroup]="formGroup">
+      <mat-form-field class="field" appearance="outline">
+        <mat-label>User Name</mat-label>
+        <input matInput placeholder="" value="[userName]" formControlName="name">
+      </mat-form-field>
+    </form>
+  </div>
+  <!-- Modal footer -->
+  <div class="flex justify-end p-6 pt-0">
+    <button data-modal-toggle="defaultModal" type="button"
+      (click)="closeModalClicked()"
+      class="text-center bg-custom-tbr-red text-white py-2 px-4 mr-3 rounded uppercase cursor-pointer">
+      cancel
+    </button>
+    <button data-modal-toggle="defaultModal" type="button" [disabled]="formGroup.invalid"
+      (click)="editUser()"
+      class="text-center bg-custom-tbr-green text-white py-2 px-4 rounded uppercase cursor-pointer"
+      [ngClass]="{ 'bg-custom-primary-disabled': formGroup.invalid }">
+      submit
+    </button>
+  </div>
+</div>

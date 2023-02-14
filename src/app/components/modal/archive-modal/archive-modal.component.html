@@ -1,0 +1,45 @@
+<div class="w-fit flex flex-col" [ngClass]="{'w-[920px]': data.title === 'Delete Risk'}">
+    <div class="header">
+        <div class="title">{{data.title}}</div>
+        <button (click)="closeModal()" type="button" class="flex align-middle" data-modal-toggle="defaultModal">
+          <mat-icon matTooltip="Close Modal" class="text-white text-center" >close</mat-icon>
+        </button>
+      </div>
+    <div *ngIf="data.title === 'Archive Risk'" class="p-4 text-center flex flex-col">
+        <span class="mb-4 font-medium text-lg text-[#707070]">Please choose reason to archive this risk</span>
+        <div class="flex justify-between">
+            <button class="mr-2 uppercase bg-[#89b555] py-2 px-5 rounded text-white font-medium"
+                (click)="mitigated()">Risk Mitigated</button>
+            <button class="uppercase bg-[#e84721] py-2 px-5 rounded text-white font-medium"
+                (click)="deleteRisk('delete')">Delete Risk</button>
+        </div>
+    </div>
+
+    <div *ngIf="data.title === 'Delete Risk'" class="px-8 py-4 text-center flex flex-col">
+        <span class="my-4 font-medium text-lg text-[#707070]">Reason for declining Proposal?</span>
+        <mat-form-field  appearance="outline">
+            <mat-label>Reason</mat-label>
+            <textarea class="h-[150px]" matInput placeholder="Please Enter Reason to Decline the risk." [(ngModel)]="reasonToDecline"></textarea>
+          </mat-form-field>
+
+        <div class="flex justify-end">
+            <button class="mr-2 uppercase bg-[#e84721] py-2 px-5 rounded text-white font-medium"
+                (click)="closeModal()">Cancel</button>
+            <button
+                class="uppercase bg-[#89b555] py-2 px-5 rounded text-white font-medium"
+                [disabled]="reasonToDecline === ''"
+                [ngClass]="{'bg-[#707070]': reasonToDecline === ''}"
+                (click)="deleteRisk('decline')">Decline</button>
+        </div>
+    </div>
+
+    <div *ngIf="data.title === 'Approve Risk'" class="px-8 py-4 text-center flex flex-col">
+        <span class="my-4 font-medium text-lg text-[#707070]">Are you sure you want to {{data.title}} ?</span>
+        <div class="flex justify-center">
+            <button class="mr-2 uppercase bg-[#89b555] py-2 px-5 rounded text-white font-medium"
+                (click)="approveRisk()">Yes</button>
+            <button class="uppercase bg-[#e84721] py-2 px-5 rounded text-white font-medium"
+                (click)="closeModal()">No</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+<!-- Main modal -->
+<div
+    class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full justify-center items-center flex">
+    <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow">
+            <!-- Modal header -->
+            <div class="header">
+                <div class="title">{{data.title}}</div>
+                <button (click)="closeModalClicked()" type="button" class="flex align-middle" data-modal-toggle="defaultModal">
+                  <mat-icon matTooltip="Close Modal" class="text-white text-center" >close</mat-icon>
+                </button>
+              </div>
+            <form class="customForm" [formGroup]="assignUserForm">
+                <!-- Modal body -->
+                <div class="p-6 space-y-6">
+                    <mat-form-field class="field" appearance="outline">
+                        <!-- <mat-label>Sushi</mat-label> -->
+                        <input matInput placeholder="" formControlName="name">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Assign Users</mat-label>
+                        <mat-select formControlName="users" multiple>
+                          <mat-option *ngFor="let users of allUsersList" [value]="users.id">{{users.firstName}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <!-- Modal footer -->
+                <div class="p-6 pt-0">
+                    <button data-modal-toggle="defaultModal" type="button"
+                        class="text-center bg-custom-primary text-white py-3 px-4 rounded w-full" (click)="updateGroupClicked()">Update Group</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

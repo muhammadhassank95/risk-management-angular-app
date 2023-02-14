@@ -1,0 +1,48 @@
+.legal-container{
+  .terms-box{
+    height: calc(100vh - 200px);
+    overflow: hidden;
+  }
+
+  .mask {
+    position: absolute;
+    width: 100%;
+    height: calc(100% - 3.25rem);
+    top: 3rem;
+    text-align: center;
+  }
+
+  .mask > .pei-spinner::before {
+    font-size: 8rem;
+    margin-top: 350px;
+  }
+
+  .pei {
+    display: inline-block;
+    position: relative;
+    font-style: normal;
+    font-family: Arial;
+  }
+  .pei-spinner::before {
+    content: "";
+    vertical-align: text-bottom;
+    display: inline-block;
+    box-sizing: border-box;
+    width: 1em;
+    height: 1em;
+    border: 0.1em solid gray;
+    border-right-color: transparent;
+    border-radius: 0.625em;
+    animation: pei-infinite-spinning .75s linear infinite;
+  }
+
+  @keyframes pei-infinite-spinning {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
+

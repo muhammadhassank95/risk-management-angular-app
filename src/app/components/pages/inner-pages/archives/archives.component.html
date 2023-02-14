@@ -1,0 +1,29 @@
+<div class="flex-1">
+    <div class="container px-4 mx-auto">
+        <div class="flex flex-wrap justify-between items-start">
+            <mat-form-field appearance="outline" class="select-dropdown">
+                <mat-label>Select Site</mat-label>
+                <mat-select (selectionChange)="selectSite($event)" [(ngModel)]="selectedSiteId">
+                    <mat-option *ngFor="let site of sitesList" [value]="site.id">
+                        {{site.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div></div>
+        <div class="my-6">
+            <ag-grid-angular
+                class="ag-theme-alpine"
+                style="width: auto; max-height: 500px; overflow: auto;"
+                [columnDefs]="columnDefs"
+                [defaultColDef]="defaultColDef"
+                domLayout="autoHeight"
+                [suppressDragLeaveHidesColumns]="true"
+                [rowData]="rowData"
+                [rowSelection]="rowSelection"
+                [frameworkComponents]="frameworkComponents"
+                (gridReady)="onGridReady($event)"
+            ></ag-grid-angular>
+        </div>
+    </div>
+</div>

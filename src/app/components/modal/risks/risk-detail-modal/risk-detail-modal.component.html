@@ -1,0 +1,80 @@
+<div
+    class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full justify-center items-center flex">
+    <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow ">
+            <!-- Modal header -->
+            <div
+                class="flex justify-between items-center p-4 rounded-t border-b dark:border-gray-600 bg-custom-primary">
+                <div class="text-xl mb-0 text-white">
+                    {{data.title}}
+                </div>
+                <div>
+                    <button (click)="editSaveRisk(true)" type="button" class="text-white mr-3"
+                        data-modal-toggle="defaultModal">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button (click)="closeModalClicked()" type="button" class="text-white"
+                        data-modal-toggle="defaultModal">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </div>
+            </div>
+            <form class="p-6" [formGroup]="riskDetailForm">
+                <table class="w-full">
+                    <tr>
+                        <td>
+                            <div class="inline-block my-2">
+                                <p class="uppercase m-0">BUSINESS RISK</p>
+                                <p class="text-custom-primary m-0">{{ selectedRisk.name }}</p>
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <div class="inline-block my-2 text-left">
+                                <p class="uppercase m-0">DATE</p>
+                                <p class="text-custom-primary m-0">{{ selectedRisk.date | date: 'MMMM d, y' }}</p>
+                            </div>
+                        </td>
+                        <td class="text-right">
+                            <div class="inline-block my-2 text-left">
+                                <p class="uppercase m-0">LIKELIHOOD</p>
+                                <p class="text-custom-primary m-0">{{ selectedRisk.likelihood }}%</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="inline-block my-2">
+                                <p class="uppercase m-0">OUTCOME</p>
+                                <p class="text-custom-primary m-0">{{ selectedRisk.outcome + ' ' + duration(selectedRisk.duration) }}</p>
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <div class="inline-block my-2 text-left">
+                                <p class="uppercase m-0">KEY CONTRIBUTOR</p>
+                                <p class="text-custom-primary m-0">{{ selectedRisk.group.name }}</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <div class="inline-block my-2 w-full">
+                                <p class="uppercase m-0">DESCRIPTION</p>
+                                <textarea *ngIf="!isEdit" disabled class="text-custom-primary m-0 w-full h-full">{{ [selectedRisk.description] }}</textarea>
+                                <span class="customForm">
+                                    <mat-form-field *ngIf="isEdit" class="field" appearance="outline">
+                                        <textarea matInput placeholder="" formControlName="description"></textarea>
+                                    </mat-form-field>
+                                </span>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <div *ngIf="isEdit">
+                    <button (click)="editSaveRisk(false)" data-modal-toggle="defaultModal" type="button"
+                        class="text-center bg-custom-primary text-white py-3 px-4 rounded w-full">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+<div class="custom-grid-menu">
+
+    <button *ngIf="params.onEdit" class="mr-2" mat-icon-button (click)="OnEdit($event)">
+        <a title="Edit">
+            <mat-icon class="icon-button text-custom-primary">edit</mat-icon>
+       </a>
+    </button>
+    <button *ngIf="params.onView" mat-icon-button (click)="OnView($event)">
+        <a title="View Details">
+            <mat-icon class="icon-button text-custom-primary">visibility</mat-icon>
+        </a>
+    </button>
+    <button *ngIf="params.onLogView" class="ml-2" mat-icon-button (click)="OnLogView($event)">
+        <a title="View Activities">
+            <mat-icon class="icon-button text-custom-primary">assignment</mat-icon>
+        </a>
+    </button>
+    <button *ngIf="params.onCheck" class="ml-2" mat-icon-button (click)="onCheck($event)">
+        <a title="Accept">
+            <!-- <mat-icon class="text-custom-primary">delete</mat-icon> -->
+            <mat-icon class="icon-button text-custom-primary">check</mat-icon>
+        </a>
+    </button>
+    <button *ngIf="params.onCross" class="ml-2" mat-icon-button (click)="onCross($event)">
+        <a title="Decline">
+            <mat-icon class="icon-button text-custom-primary">close</mat-icon>
+        </a>
+    </button>
+    <button *ngIf="params.onArchive" class="ml-2" mat-icon-button (click)="OnArchive($event)">
+        <a title="Mitigated">
+            <mat-icon class="icon-button text-custom-primary">archive</mat-icon>
+        </a>
+    </button>
+    <ng-container *ngIf="isAdmin">
+        <button *ngIf="params.onChangePassword" class="ml-2" mat-icon-button (click)="onChangePassword($event)">
+            <a title="Change Password">
+                <mat-icon class="icon-button text-custom-primary">vpn_key</mat-icon>
+            </a>
+        </button>
+    </ng-container>
+    <button *ngIf="params.onDownload" class="ml-2" mat-icon-button (click)="onDownload($event)">
+        <a title="Download">
+            <mat-icon class="icon-button text-custom-primary">cloud_download</mat-icon>
+        </a>
+    </button>
+    <button *ngIf="params.onTrash" class="ml-2" mat-icon-button (click)="onTrash($event)">
+        <a title="Delete">
+            <mat-icon class="icon-button text-custom-primary">delete</mat-icon>
+        </a>
+    </button>
+</div>

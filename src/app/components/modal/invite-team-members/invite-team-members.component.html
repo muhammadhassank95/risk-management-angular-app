@@ -1,0 +1,48 @@
+<div class="w-[620px] flex flex-col">
+    <div class="header">
+        <div class="title">{{data?.title === 'Add User' ? 'INVITE TEAM MEMBER' : 'UPDATE USER'}}</div>
+    </div>
+    <div [formGroup]="formGroup" class="p-4">
+        <div class="flex flex-row px-4">
+            <mat-form-field appearance="outline" class="mr-4 w-full">
+                <mat-label>Full Name</mat-label>
+                <input matInput placeholder="" formControlName="name">
+            </mat-form-field>
+            <mat-form-field class=" w-full" appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput placeholder="" formControlName="email">
+            </mat-form-field>
+        </div>
+        <div class="flex flex-row px-4" *ngIf="data.isEdit">
+            <mat-form-field appearance="outline" class="mr-4 w-full">
+                <mat-label>Select Capability</mat-label>
+                <mat-select formControlName="group" >
+                    <mat-option *ngFor="let group of groupList" [value]="group.id">{{group.name}}</mat-option>
+                  </mat-select>
+            </mat-form-field>
+            <mat-checkbox class="w-full mt-4" formControlName="global">GLOBAL ADMIN</mat-checkbox>
+        </div>
+
+        <!-- <mat-form-field class="example-chip-list" appearance="fill" class="w-full">
+            <mat-label>Community Member of</mat-label>
+            <mat-chip-list #chipList aria-label="Community" formControlName="community">
+              <mat-chip *ngFor="let community of communityArrForm?.value" [selectable]="selectable"
+              [removable]="removable" (removed)="remove(community)">
+                {{community}}
+                <button matChipRemove>
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </mat-chip>
+              <input placeholder="New Team..."
+                     [matChipInputFor]="chipList"
+                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                     [matChipInputAddOnBlur]="addOnBlur"
+                     (matChipInputTokenEnd)="add($event)">
+            </mat-chip-list>
+          </mat-form-field> -->
+          <div class="text-right">
+              <button class="mr-2 uppercase bg-[#e84721] py-2 px-5 rounded text-white font-medium" (click)="cancel()">Cancel</button>
+              <button (click)="data.isEdit ? updateUser() : sendInvite()" [disabled]="!formGroup.valid" [ngClass]="{'bg-gray-500': !formGroup.valid}" class="uppercase bg-[#89b555] py-2 px-5 rounded text-white font-medium"> {{data.isEdit ? 'Update' : 'Invite'}}</button>
+          </div>
+    </div>
+</div>

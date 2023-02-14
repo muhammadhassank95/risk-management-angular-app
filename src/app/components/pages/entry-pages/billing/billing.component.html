@@ -1,0 +1,31 @@
+<div class="signin-page-container flex justify-center h-full pt-10">
+    <div class="flex-shrink-0 flex-grow max-w-lg">
+        <div class="flex flex-col">
+            <span class="text-gray-600 text-2xl font-bold mb-8">Complete The Sign Up</span>
+            <span class="text-gray-500 text-xl mb-10">Let's create your password and enter your billing details to complete the sign up process.</span>
+        </div>
+        <div class="flex flex-col w-full">
+            <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                    <input matInput placeholder="" >
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Confirm Password</mat-label>
+                    <input matInput placeholder="" >
+            </mat-form-field>
+
+            <span class="text-gray-600 text-2xl font-bold mb-4">Card details</span> <br>
+            <mat-form-field appearance="outline">
+                <mat-label>Card Number</mat-label>
+                    <input matInput placeholder="" >
+            </mat-form-field>
+        </div>
+        <div class="text-center flex flex-col">
+            <button
+                mat-button
+                class="bg-custom-primary text-white rounded mb-4 py-2 text-lg"
+                (click)="createAccount()"
+            >Create Account</button>
+        </div>
+    </div>
+</div>

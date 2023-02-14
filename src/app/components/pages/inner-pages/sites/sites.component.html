@@ -1,0 +1,25 @@
+<div class="flex-1">
+    <div class="container px-4 mx-auto">
+        <div class="flex flex-wrap justify-between items-start">
+            <div></div>
+            <button
+                (click)="createSiteClicked()"
+                class="bg-custom-primary hover:bg-custom-primary text-white py-3 px-6 rounded-lg">
+                Create New Sites
+            </button>
+        </div>
+        <div class="my-6">
+            <ag-grid-angular
+                class="ag-theme-alpine"
+                style="width: auto;"
+                [defaultColDef]="defaultColDef"
+                [suppressDragLeaveHidesColumns]="true"
+                domLayout="autoHeight"
+                [rowData]="rowData"
+                [columnDefs]="columnDefs"
+                [frameworkComponents]="frameworkComponents"
+                (gridReady)="onGridReady($event)"
+            ></ag-grid-angular>
+        </div>
+    </div>
+</div>

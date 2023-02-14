@@ -1,0 +1,80 @@
+<div class="flex-1">
+    <div class="container px-4 mx-auto">
+        <div class="flex justify-between items-center flex-wrap">
+            <div (click)="onBackClicked()" class="log-back">
+                <a class="flex items-center text-custom-primary">
+                    <svg class="w-6 mr-2 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z"></path>
+                    </svg> Back
+                </a>
+            </div>
+            <div class="log-detail flex items-center">
+                <div class="m-4"><span class="text-custom-primary m-1">Business Risk: </span> {{selectedLogRisks.name}}</div>
+                <div class="m-4"><span class="text-custom-primary m-1">Created: </span> {{selectedLogRisks.date}}</div>
+            </div>
+        </div>
+        <!-- <hr /> -->
+        <div class="flex justify-between items-center flex-wrap">
+            <div class="my-4">
+                <div class="text-lg font-medium text-custom-primary mb-2">Business Risk Description:</div>
+                <div>{{selectedLogRisks.description}}</div>
+            </div>
+            <div>
+                <!--  -->
+                <input #csvInput hidden="true" type="file" onclick="this.value=null" (change)="fileUpload($event)" 
+                    accept=".doc, .docx, .xls, .xlsx, .pdf, .bmp, .jpg, .gif, .png, .heic, .heif"/>
+                <button class="bg-custom-primary hover:bg-custom-primary text-white py-4 px-6 rounded-lg mr-3" (click)="csvInput.click()">
+                    Upload Attachments
+                </button>
+                <button
+                    (click)="onNewLogClicked()"
+                    class="bg-custom-primary hover:bg-custom-primary text-white py-4 px-6 rounded-lg"
+                >New Log</button>
+            </div>
+        </div>
+        <div class="my-4">
+            <mat-tab-group class="custom-mat-tab">
+                <mat-tab label="Logs"> 
+                    <div class="my-6">
+                        <ag-grid-angular
+                            class="ag-theme-alpine"
+                            style="width: auto;"
+                            [defaultColDef]="defaultColDef"
+                            domLayout="autoHeight"
+                            [suppressDragLeaveHidesColumns]="true"
+                            [rowData]="rowData"
+                            [columnDefs]="columnDefs"
+                            [frameworkComponents]="frameworkComponents"
+                            (gridReady)="onGridReady($event)"
+                        ></ag-grid-angular>
+                    </div>
+                </mat-tab>
+                <mat-tab label="Files">
+                    <div class="my-6">
+                        <ag-grid-angular
+                            class="ag-theme-alpine"
+                            style="width: auto;"
+                            [defaultColDef]="defaultFileColDef"
+                            domLayout="autoHeight"
+                            [suppressDragLeaveHidesColumns]="true"
+                            [rowData]="fileRowData"
+                            [columnDefs]="fileColumnDefs"
+                            [frameworkComponents]="fileFrameworkComponents"
+                            (gridReady)="onFileGridReady($event)"
+                        ></ag-grid-angular>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+        <!-- <div class="my-2 flex justify-between"> -->
+            <!-- <a class="inline-flex items-center bg-custom-primary text-white py-2 px-4 rounded mb-2 mr-2">
+                <mat-icon> attach_file</mat-icon>
+                Attach Files
+            </a> -->
+            <!-- <a class="inline-flex items-center bg-custom-primary text-white py-2 px-4 rounded mb-2 mr-2">
+                <mat-icon>archive</mat-icon>
+                Archives
+            </a> -->
+        <!-- </div> -->
+    </div>
+</div>

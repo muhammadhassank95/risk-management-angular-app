@@ -1,0 +1,27 @@
+<div class="w-[780px] flex flex-col rounded">
+    <div class="header">
+        <div class="title">{{data.title}}</div>
+    </div>
+    <div class="p-4 text-center flex flex-col" [formGroup]="formGroup">
+        <quill-editor [style.height.px]="270" placeholder="Enter your update here.." formControlName="log">
+            <div quill-editor-toolbar class="flex justify-start">
+
+                <select class="ql-size">
+                    <option value="small"></option>
+                    <option selected></option>
+                    <option value="large"></option>
+                    <option value="huge"></option>
+                </select>
+                <button class="ql-bold"></button>
+                <button class="ql-italic"></button>
+                <button class="ql-underline"></button>
+                <button class="ql-image"></button>
+                <button class="ql-code-block" [title]="'Code Block'"></button>
+            </div>
+        </quill-editor>
+    </div>
+    <div class="flex justify-end p-4 mt-10">
+        <button class="mr-2 uppercase bg-[#e84721] py-2 px-5 rounded text-white font-medium" (click)="cancel()">Cancel</button>
+        <button class="uppercase bg-[#89b555] py-2 px-5 rounded text-white font-medium" (click)="submit()">Submit</button>
+    </div>
+</div>

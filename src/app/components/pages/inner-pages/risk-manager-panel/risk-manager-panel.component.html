@@ -1,0 +1,178 @@
+<div class="risks-manager-container px-4">
+    <!-- RISK HEADER (TITLE AND BUTTONS) -->
+    <div class="flex h-[70px] justify-between items-center mt-[-15px]">
+        <!-- TITLE -->
+        <div class="text-gray-400 text-xl font-bold pt-[10px] whitespace-nowrap">
+            <mat-form-field appearance="fill" class="select-dropdown">
+                <mat-select
+                    class="text-gray-400 text-xl font-bold pt-[10px] w-auto whitespace-nowrap uppercase tracking-widest"
+                    (selectionChange)="onRiskChange($event)"
+                    [(ngModel)]="selectedDropdownRiskId"
+                >
+                    <mat-option *ngFor="let risk of risksList" [value]="risk.id">
+                        {{risk.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="text-xl text-custom-tbr-gray font-bold pt-[10px] whitespace-nowrap">RISK MANAGER PANEL</div>
+        <!-- BUTTONS -->
+        <div class="text-[#f8971f] text-xs whitespace-nowrap flex items-center">
+            <div *ngIf="businessRiskList?.length > 0" >
+                <button
+                (click)="openCommunityModal()" 
+                    class="mr-2 font-medium border-2 border-[#f8971f] px-3 pt-[5px] pb-[4px] leading-normal rounded cursor-pointer bg-custom-secondary text-white hover:bg-white hover:text-custom-secondary hover:border-custom-secondary"
+                >EDIT</button>
+                <button
+                    (click)="openRiskManagerModal()"
+                    class="mr-2 font-medium border-2 border-[#f8971f] px-3 pt-[5px] pb-[4px] leading-normal rounded cursor-pointer bg-custom-secondary text-white hover:bg-white hover:text-custom-secondary hover:border-custom-secondary"
+                >RISK MANAGERS</button>
+            </div>
+            <button
+                (click)="goToCommunity()"
+                class=" font-medium border-2 border-[#f8971f] px-3 pt-[5px] pb-[4px] leading-normal rounded cursor-pointer
+                    hover:bg-custom-secondary hover:text-white"
+            >BACK TO COMMUNITY</button>
+        </div>
+    </div>
+    <!-- RISK BOTTOM CONTAINER -->
+    <div class="flex flex-between" [ngClass]="businessRiskList?.length > 0 ? 'h-full' : ''">
+        <!-- RISK LIST -->
+        <div cdkDropList class=" risk-list flex flex-col  w-[600px] overflow-y-scroll" (cdkDropListDropped)="drop($event)">
+            <div
+                cdkDragLockAxis="y"
+                [ngClass]="risk === selectedRiskData ? 'border-custom-secondary' : ''"
+                class="risk-box h-[60px] flex justify-between items-center bg-white rounded-lg border-2 overflow-hidden shrink-0 my-1 first:mt-0 last:mb-0"
+                *ngFor="let risk of businessRiskList; let i = index"
+                cdkDrag
+                (click)="selectRisk(risk)"
+                (cdkDragStarted)="dragStart($event, risk)"
+            >
+              <div class="flex h-[60px] my-1 first:mt-0 last:mb-0 shrink-0" *cdkDragPlaceholder></div>
+              <div class="flex w-full text-[#707070] justify-between items-center">
+                <div class="flex justify-start items-center font-medium">
+                  <mat-icon class="cursor-pointer mr-2" cdkDragHandle>drag_indicator</mat-icon>
+                  <div class="flex flex-col">
+                      <span> 
+                        <strong>
+                            <p class="text-ellipsis max-w-[300px] h-5 p-0 m-0 whitespace-nowrap overflow-hidden">
+                                {{risk.name}} 
+                            </p>
+                        </strong>
+                      </span>
+                      <span *ngIf="risk?.outcome && risk?.likelihood">
+                          Opportunity: ${{risk?.outcome?.toLocaleString()}} | Likelihood: {{risk?.likelihood?.toLocaleString()}}% | Risk: {{((risk?.likelihood/100) * risk?.outcome).toLocaleString()}}
+                      </span>
+                  </div>
+                </div>
+                <div class="ml-4 text-lg pr-2">
+                    <strong>{{i + 1}}</strong>
+                </div>
+              </div>
+            </div>
+        </div>
+        <!-- RISK DETAILS -->
+        <div *ngIf="businessRiskList?.length > 0" class="flex flex-col ml-3 p-3 border-2 rounded-lg w-full">
+            <span class="flex flex-col grow overflow-scroll">
+                <div class="flex justify-between mb-8">
+                    <span class="flex align-middle">
+                        <button
+                            class=" bg-custom-tbr-green border-2 border-white rounded text-white text-[13px] font-medium px-3 py-1 h-[30px] hover:bg-white hover:text-custom-secondary hover:border-custom-secondary uppercase"
+                            (click)="openCreateRiskModal(true)"
+                        >Edit</button>
+                    </span>
+                    <span class="uppercase overflow-hidden text-lg text-[#707070] max-h-48 px-3 m-0">
+                        <strong> {{ selectedRiskData?.name }} </strong>
+                    </span>
+                    <div>
+                        <span *ngIf="selectedDropdownRiskId !== 'archivedRisks'" class="flex flex-col">
+                            <span *ngIf="selectedDropdownRiskId !== 'acceptedRisks'">
+                                <button
+                                    class=" bg-custom-tbr-green border-2 border-white rounded text-white text-[13px] font-medium px-1 py-1 h-[35px] hover:bg-white hover:text-custom-tbr-green hover:border-custom-tbr-green"
+                                    (click)="approveRisk()"
+                                ><mat-icon>check</mat-icon></button>
+                                <button
+                                    class=" bg-custom-tbr-red border-2 border-white rounded text-white text-[13px] font-medium px-1 py-1 h-[35px] hover:bg-white hover:text-custom-tbr-red hover:border-custom-tbr-red"
+                                    (click)="deleteRisk()"
+                                ><mat-icon>close</mat-icon></button>
+                            </span>
+                            <button
+                                *ngIf="selectedDropdownRiskId !== 'proposedRisks'"
+                                class=" bg-custom-secondary border-2 border-white rounded text-white text-[13px] font-medium px-2 py-1 h-[30px]
+                                hover:bg-white hover:text-custom-secondary hover:border-custom-secondary"
+                                (click)="archive()"
+                            >ARCHIVE</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="flex justify-between mb-8 px-14 text-[#707070]">
+                    <div class="flex flex-col w-[200px]">
+                        <span class="mb-2 font-medium whitespace-nowrap">OPPORTUNITY OUTCOME</span>
+                        <span class="text-[25px] font-bold whitespace-nowrap"><ng-container *ngIf="selectedRiskData?.unit === 'dollars'">$ </ng-container>{{ numberWithCommas(selectedRiskData?.outcome) }} {{ getUnit(selectedRiskData?.unit) }} </span>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="mb-2 font-medium whitespace-nowrap">RISK LIKELIHOOD</span>
+                        <span class="text-[25px] font-bold whitespace-nowrap">{{ selectedRiskData?.likelihood }}%</span>
+                    </div>
+                    <div class="flex flex-col w-[200px]">
+                        <span class="mb-2 font-medium whitespace-nowrap">KEY CAPABILITY</span>
+                        <span class="text-[25px] font-bold whitespace-nowrap">{{ selectedRiskData?.group?.name }}</span>
+                    </div>
+                </div>
+                <!-- DETAILS/UPDATES -->
+                <div class=" flex flex-col grow text-[#707070] px-14 ">
+                    <div class="flex flex-col mb-5">
+                        <span class="uppercase text-sm pt-1 font-semibold mb-2">DETAILS</span>
+                        <span>
+                        {{ selectedRiskData?.description }}
+                        </span>
+                    </div>
+                    <div class="text-left font-semibold">UPDATES</div>
+                    <div class="flex flex-col grow overflow-auto">
+                        <table class="w-full flex flex-col">
+                            <ng-container *ngIf="riskTableData?.length > 0; else noData">
+                                <div *ngFor="let data of riskTableData; let i = index" class="mb-3 flex">
+                                    <div class="flex flex-col text-xs flex mt-5 w-[125px] shrink-0">
+                                        <span> {{ data.date | date: 'MM/dd/yyyy' }} </span>
+                                        <span class="font-medium ">by {{ data.user }} </span>
+                                    </div>
+                                    <div class="py-2">
+                                        <quill-editor class="quill-css" [readOnly]="true" [modules]="{toolbar: false}" [(ngModel)]="data.notes"></quill-editor>
+                                    </div>
+                                </div>
+                            </ng-container>
+                            <ng-template #noData>
+                                <div class="w-full text-center h-10 flex justify-center items-center">No Updates...</div>
+                            </ng-template>
+                        </table>
+                    </div>
+                </div>
+            </span>
+            <hr>
+            <span class="flex justify-between items-end text-xs text-[#707070] pt-2">
+                <span>Created: {{selectedRiskData?.date | date: 'MM/dd/yyyy'}}</span>
+                <span>Submitted By: {{selectedRiskData?.user.name}}</span>
+            </span>
+        </div>
+    </div>
+    <div class="flex justify-center item-center h-full">
+        <!-- <div class="text-[#f8971f] text-xs whitespace-nowrap flex items-center"> -->
+        <div class="flex item-center justify-center h-full text-[#f8971f] text-xs whitespace-nowrap">
+            <span class="self-center">
+                <button
+                    (click)="openCommunityModal()" 
+                    class="mr-2 font-medium border-2 border-[#f8971f] px-3 pt-[5px] pb-[4px] leading-normal rounded cursor-pointer bg-custom-secondary text-white hover:bg-white hover:text-custom-secondary hover:border-custom-secondary"
+                >EDIT</button>
+                <button
+                    (click)="openRiskManagerModal()"
+                    class="mr-2 font-medium border-2 border-[#f8971f] px-3 pt-[5px] pb-[4px] leading-normal rounded cursor-pointer bg-custom-secondary text-white hover:bg-white hover:text-custom-secondary hover:border-custom-secondary"
+                >RISK MANAGERS</button>
+                <!-- <button
+                    (click)="goToCommunity()"
+                    class=" font-medium border-2 border-[#f8971f] px-3 pt-[5px] pb-[4px] leading-normal rounded cursor-pointer
+                        hover:bg-custom-secondary hover:text-white"
+                >BACK TO COMMUNITY</button> -->
+            </span>
+        </div>
+    </div>
+</div>

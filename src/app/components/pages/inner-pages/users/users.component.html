@@ -1,0 +1,80 @@
+<div class="users-container flex w-full justify-center px-4 pt-2">
+  <!-- TITLE ON LEFT -->
+  <div class="flex flex-col font-semibold text-[30px] text-custom-tbr-gray w-[260px] uppercase">
+    <div>User</div>
+    <div class="py-3">admin</div>
+    <div>panel</div>
+  </div>
+  <!-- MAIN CENTER COLUMN -->
+  <div class="flex flex-col w-full">
+    <!-- INFO BOXXES -->
+    <div class="flex mb-5 justify-between">
+      <div class="flex">
+        <div class="flex-col w-[140px] h-[90px] border-2 border-custom-tbr-gray text-custom-tbr-gray rounded">
+            <div class="flex justify-center font-medium text-[13px] py-1">Active Users</div>
+            <div class="flex justify-center font-medium text-[38px] pt-3">{{counters?.users}}</div>
+        </div>
+        <div class="flex-col w-[140px] h-[90px] border-2 border-custom-tbr-gray text-custom-tbr-gray rounded mx-8">
+            <div class="flex justify-center font-medium text-[13px] py-1">Licences</div>
+            <div class="flex justify-center font-medium text-[38px] pt-3">{{counters?.licenses}}</div>
+        </div>
+        <div class="flex-col w-[140px] h-[90px] border-2 border-custom-tbr-gray text-custom-tbr-gray rounded">
+            <div class="flex justify-center font-medium text-[13px] py-1">Communities</div>
+            <div class="flex justify-center font-medium text-[38px] pt-3">{{counters?.sites}}</div>
+        </div>
+      </div>
+      <div
+        style="position: absolute;top: 110px;bottom: 0;right: 20px;"
+        class="text-[#f8971f] text-xs whitespace-nowrap"
+      >
+        <button
+          (click)="goToCommunity()"
+          class="font-medium border-2 border-[#f8971f] px-3 py-[5px] rounded cursor-pointer hover:bg-custom-secondary hover:text-white"
+        >BACK</button>
+      </div>
+    </div>
+    <!-- BUTTON CLUSTER (ROW) -->
+    <div class="flex w-full justify-between">
+      <div class="flex flex-nowrap justify-start items-start">
+        <button nz-button (click)="addUser()" [disabled]="this.addUserDsabled"
+        [ngClass]="{ 'hover:bg-gray-400 hover:text-white hover:border-gray-400 text-gray-500 cursor-pointer': !this.addUserDsabled, 'bg-gray-400 text-gray-200': this.addUserDsabled }"
+          class="align-middle font-medium  border border-custom-tbr-gray px-3 py-[4px] rounded"
+        > + ADD USER</button>
+        <button (click)="resetPassword()"
+          class=" mx-4 font-medium text-gray-500 border border-custom-tbr-gray px-3 py-[4px] rounded cursor-pointer
+                  hover:bg-gray-400 hover:text-white hover:border-gray-400
+                "
+        >RESET PASSWORD</button>
+        <button (click)="updateUser()"
+          class=" font-medium text-gray-500 border border-custom-tbr-gray px-3 py-[4px] rounded cursor-pointer
+                  hover:bg-gray-400 hover:text-white hover:border-gray-400
+                "
+        >UPDATE USER</button>
+      </div>
+      <button (click)="deleteUser()"
+        class=" font-medium text-white border border-custom-tbr-red bg-custom-tbr-red px-3 py-[4px] rounded cursor-pointer
+                hover:bg-white hover:text-custom-tbr-red hover:border-custom-tbr-red
+              "
+      >DELETE USER</button>
+    </div>
+    <!-- GRID -->
+    <div class="flex grow my-6 ">
+        <ag-grid-angular
+            class="ag-theme-alpine"
+            style="width: 100%; height: 100%;"
+            [defaultColDef]="defaultColDef"
+            [suppressDragLeaveHidesColumns]="true"
+            (modelUpdated)="onModelUpdated($event)"
+            [rowData]="rowData"
+            [columnDefs]="columnDefs"
+            [rowSelection]="rowSelection"
+            [frameworkComponents]="frameworkComponents"
+            (gridReady)="onGridReady($event)"
+            (selectionChanged)="onRowSelected($event)"
+        ></ag-grid-angular>
+    </div>
+  </div>
+  <!-- RIGHT SPACER -->
+  <div class="w-[260px]"></div>
+</div>
+

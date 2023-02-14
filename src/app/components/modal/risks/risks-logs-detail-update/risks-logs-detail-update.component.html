@@ -1,0 +1,90 @@
+<div
+    class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full justify-center items-center flex">
+    <div class="relative p-4 w-full max-w-lg h-full md:h-auto">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow ">
+            <!-- Modal header -->
+            <div
+                class="flex justify-between items-center p-4 rounded-t border-b dark:border-gray-600 bg-custom-primary">
+                <div class="text-xl mb-0 text-white">
+                    {{data.title === 'Log Details' ? data.title : 'Create Log'}}
+                </div>
+                <div>
+                    <button *ngIf="data.title === 'Log Details'" (click)="editSaveRisk(true)" type="button" class="text-white mr-3"
+                        data-modal-toggle="defaultModal">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button (click)="closeModalClicked()" type="button" class="text-white"
+                        data-modal-toggle="defaultModal">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </div>
+            </div>
+            <form *ngIf="data.title === 'Log Details'" [formGroup]="risksLogsDetailForm">
+                <div class="p-6">
+                    <table class="w-full">
+                        <!-- <tr>
+                            <td>
+                                <div class="inline-block my-2">
+                                    <p class="uppercase m-0">Date</p>
+                                    <p class="text-custom-primary m-0">{{data.selectedRow.date}}</p>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <div class="inline-block my-2 text-left">
+                                    <p class="uppercase m-0">Group</p>
+                                    <p class="text-custom-primary m-0">{{data.selectedRow.group}}</p>
+                                </div>
+                            </td>
+                            <td class="text-right"> 
+                                <div class="inline-block my-2 text-left">
+                                    <p class="uppercase m-0">Group Lead</p>
+                                    <p class="text-custom-primary m-0">Hassan</p>
+                                </div>
+                            </td>
+                        </tr> -->
+                        <tr>
+                            <td colspan="3">
+                                <div class="inline-block my-2 w-full">
+                                    <p class="uppercase m-0">Notes</p>
+                                    <p *ngIf="!isEdit" class="text-custom-primary m-0">{{data.selectedRow.notes}}</p>
+                                        <span class="customForm">
+                                            <mat-form-field *ngIf="isEdit" class="field" appearance="outline">
+                                                <mat-label>Enter Notes</mat-label>
+                                                <textarea matInput placeholder="" formControlName="notes"></textarea>
+                                            </mat-form-field>
+                                        </span>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <div *ngIf="isEdit">
+                        <button (click)="editSaveRisk(false)" data-modal-toggle="defaultModal" type="button"
+                            class="text-center bg-custom-primary text-white py-3 px-4 rounded w-full">Save</button>
+                    </div>
+                </div>
+            </form>
+
+            <!-- create log form  -->
+            <ng-container  *ngIf="data.title === 'Create Log'">
+                <div class="inline-block my-2 w-full p-6">
+                    <p class="uppercase m-0">Notes</p>
+                    <span class="customForm">
+                        <mat-form-field class="field" appearance="outline">
+                            <mat-label>Enter Notes</mat-label>
+                            <textarea matInput placeholder="" [(ngModel)]="newNotes"></textarea>
+                        </mat-form-field>
+                    </span>
+                </div>
+                <div>
+                    <button
+                        (click)="saveNewRisk()"
+                        data-modal-toggle="defaultModal"
+                        type="button"
+                        class="text-center bg-custom-primary text-white py-3 px-4 rounded w-full"
+                    >Save</button>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>

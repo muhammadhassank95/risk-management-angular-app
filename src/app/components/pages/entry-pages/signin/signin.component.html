@@ -1,0 +1,48 @@
+<div class="signin-container h-full">
+    <div class="flex flex-row h-full">
+        <div class="basis-1/2">
+            <div class="signin-page-container flex justify-center items-center h-full">
+                <div class="form-containter p-10 rounded-md flex-shrink-0 flex-grow max-w-lg">
+                    <img class="max-w-[432px] mb-[40px]" src="/assets/images/login/tbrLogo.png" alt="logo">
+                    <form action=""></form>
+                    <div class="space-y-6">
+                        <div class="space-y-6">
+                            <form class="flex flex-col login-form" [formGroup]="signinFormGroup">
+                                <mat-form-field appearance="outline">
+                                    <mat-label class="text-white">Email</mat-label>
+                                    <input matInput placeholder="" formControlName="username">
+                                </mat-form-field>
+                                <mat-form-field class="mb-4" appearance="outline">
+                                    <mat-label class="text-white">Password</mat-label>
+                                    <span class="flex flex-row">
+                                        <input matInput placeholder="" [type]="hide ? 'password' : 'text'"
+                                            formControlName="password">
+                                        <mat-icon mattSuffix (click)="hide = !hide" class="vis-icon">{{ hide ? 'visibility_off'
+                                            : 'visibility' }}</mat-icon>
+                                    </span>
+                                </mat-form-field>
+                                <div class="text-center flex ">
+                                    <!-- <button
+                                        type="button"
+                                        mat-button
+                                        (click)="signUp()"
+                                        class="login-button grow font-medium text-white border-2 border-white uppercase p-1 mr-3 text-lg"
+                                    >Create New Account</button> -->
+                                    <button
+                                        type="button"
+                                        (click)="login()"
+                                        mat-button
+                                        class="login-button grow font-medium text-white border-2 border-white uppercase p-1 text-lg"
+                                    >Login</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="background-color: #f8971f;" class="right-box text-white text-xl w-1/2 pt-4 flex flex justify-center items-center ">
+            <app-entry-page-leftbar></app-entry-page-leftbar>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,60 @@
+<div class="px-4 pt-2">
+    <div class="flex mb-5 justify-between">
+      <div class="flex flex-col font-semibold text-[30px] text-custom-tbr-gray w-[260px] uppercase">
+        <div>Capability</div>
+        <div class="py-3">Teams</div>
+      </div>
+      <div
+        class="text-[#f8971f] text-xs whitespace-nowrap"
+      >
+        <button
+          (click)="back()"
+          class="font-medium border-2 border-[#f8971f] px-3 py-[5px] rounded cursor-pointer hover:bg-custom-secondary hover:text-white"
+        >BACK</button>
+      </div>
+    </div>
+  <div></div>
+</div>
+
+<div class="groups-container flex w-full justify-center px-4 pt-2">
+    <!-- MAIN CENTER COLUMN -->
+    <div class="flex flex-col w-1/2">
+      <!-- BUTTON CLUSTER (ROW) -->
+      <div class="flex w-full justify-between">
+        <div class="flex flex-nowrap justify-start items-start">
+          <button (click)="addGroup()"
+            class="mr-2 align-middle font-medium text-gray-500 border border-custom-tbr-gray px-3 py-[4px] rounded cursor-pointer
+                    hover:bg-gray-400 hover:text-white hover:border-gray-400 uppercase
+                  "
+          >+ Add</button>
+          <button (click)="editGroup()"
+            class=" font-medium text-gray-500 border border-custom-tbr-gray px-3 py-[4px] rounded cursor-pointer
+                    hover:bg-gray-400 hover:text-white hover:border-gray-400 uppercase
+                  "
+          >Edit</button>
+        </div>
+        <button (click)="deleteGroup()"
+          class=" font-medium text-white border border-custom-tbr-red bg-custom-tbr-red px-3 py-[4px] rounded cursor-pointer
+                  hover:bg-white hover:text-custom-tbr-red hover:border-custom-tbr-red uppercase
+                "
+        >Delete</button>
+      </div>
+      <!-- GRID -->
+      <div class="flex grow my-6 ">
+          <ag-grid-angular
+              class="ag-theme-alpine"
+              style="width: 100%; height: auto; min-height: 200px; max-height: 680px; overflow: auto;"
+              [defaultColDef]="defaultColDef"
+              [suppressDragLeaveHidesColumns]="true"
+              (modelUpdated)="onModelUpdated($event)"
+              [rowData]="rowData"
+              [columnDefs]="columnDefs"
+              [rowSelection]="rowSelection"
+              [frameworkComponents]="frameworkComponents"
+              (selectionChanged)="onRowSelected($event)"
+              [pagination]="true"
+          ></ag-grid-angular>
+      </div>
+    </div>
+  </div>
+

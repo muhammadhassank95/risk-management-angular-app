@@ -1,0 +1,14 @@
+<div class="w-fit flex flex-col">
+    <div class="header">
+        <div class="title">{{data.title}}</div>
+    </div>
+    <div class="p-4 text-center flex flex-col">
+        <span class=" text-lg text-[#707070] px-4 pb-6">Are you sure you want to delete this team?</span>
+        <div class="flex justify-end">
+            <button class="mr-2 uppercase bg-[#f8971f] py-2 px-5 rounded text-white font-medium"
+                (click)="cancel()">Cancel</button>
+            <button class="uppercase bg-[#e84721] py-2 px-5 rounded text-white font-medium"
+                (click)="deleteTeam()">Delete</button>
+        </div>
+    </div>
+</div>

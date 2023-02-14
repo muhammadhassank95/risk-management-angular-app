@@ -1,0 +1,35 @@
+<div class="flex-1">
+    <div class="container px-4 mx-auto">
+        <div class="flex flex-wrap justify-between items-start">
+            <div></div>
+            <div>
+                <div>
+                    <strong> <b> <u>Number of Risks per site </u> </b> </strong>
+                </div>
+                <mat-button-toggle-group
+                    class="width-adjust"
+                    name="fontStyle"
+                    aria-label="Font Style"
+                    (change)="onToggleGroupChange($event)"
+                >
+                    <mat-button-toggle [checked]="defaultChecked" value="1">1</mat-button-toggle>
+                    <mat-button-toggle value="3">3</mat-button-toggle>
+                    <mat-button-toggle value="5">5</mat-button-toggle>
+                    <mat-button-toggle value="10">10</mat-button-toggle>
+                </mat-button-toggle-group>
+            </div>
+        </div>
+        <div class="my-6">
+            <ag-grid-angular
+                class="ag-theme-alpine"
+                style="width: auto; max-height: 500px; overflow: auto;"
+                [defaultColDef]="defaultColDef"
+                domLayout="autoHeight"
+                [rowData]="rowData"
+                [columnDefs]="columnDefs"
+                [frameworkComponents]="frameworkComponents"
+                (gridReady)="onGridReady($event)"
+            ></ag-grid-angular>
+        </div>
+    </div>
+</div>

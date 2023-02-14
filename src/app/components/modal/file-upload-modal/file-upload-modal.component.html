@@ -1,0 +1,57 @@
+<div class="w-[920px] flex flex-col">
+    <div class="header">
+        <div class="title">{{data.title}}</div>
+    </div>
+    <div class="p-4 text-center flex flex-col">
+        <div class="my-4 font-medium text-lg text-[#707070]">
+            <table *ngIf="uploadedFiles?.length > 0" class="w-full mb-4">
+                <thead class="table w-full table-fixed">
+                    <tr>
+                        <th class="text-left p-2 w-20">Type</th>
+                        <th class="text-left p-2 w-96">File Name</th>
+                        <th class="text-left p-2">Name</th>
+                        <th class="text-left p-2">Uploaded</th>
+                        <th class="text-center p-2">Action</th>
+                    </tr>
+                </thead>
+                <tbody class="block h-[350px] overflow-auto">
+                    <tr *ngFor="let file of uploadedFiles" class="table w-full table-fixed">
+                        <td class="text-left p-2 w-20">
+                            <img *ngIf="file.originalName.includes('pdf')" src="/assets/images/login/file-pdf-solid.svg"
+                                alt="pdf-file.alt" width="20px" height="20px">
+                            <img *ngIf="file.originalName.includes('doc') || file.originalName.includes('docx')"
+                                src="/assets/images/login/file-word-solid.svg" alt="word-file.alt" width="20px"
+                                height="20px">
+                            <img *ngIf="file.originalName.includes('xls') || file.originalName.includes('xlsx')"
+                                src="/assets/images/login/file-excel-solid.svg" alt="xls.file.alt" width="20px"
+                                height="20px">
+                            <img *ngIf="file.originalName.includes('png') || file.originalName.includes('jpg') || file.originalName.includes('jpeg')"
+                                src="/assets/images/login/image-solid.svg" alt="images-file.alt" width="20px" height="20px">
+                        </td>
+                        <td class="text-left p-2 w-96">
+                            <p class="text-ellipsis max-w-96 pl-2 p-0 m-0 whitespace-nowrap overflow-hidden">
+                                {{file?.originalName}}
+                            </p>
+                        </td>
+                        <td class="text-left p-2">{{file?.user}}</td>
+                        <td class="text-left p-2">{{file?.date | date: 'MM/dd/y'}}</td>
+                        <td (click)="onDownloadClick(file)" class="text-center p-2 cursor-pointer">
+                            <mat-icon>download</mat-icon>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <span *ngIf="uploadedFiles?.length === 0" class="uppercase">No file uploaded</span>
+        </div>
+        <div class="flex justify-end">
+            <input #csvInput hidden="true" type="file" onclick="this.value=null" (change)="fileUpload($event)"
+                accept=".jpg, .png, .jpeg, .xls, .xlsx, .pdf, .doc, .docx" />
+            <button class="uppercase mr-2 bg-[#89b555] py-2 px-5 rounded text-white font-medium"
+                (click)="csvInput.click()">
+                Upload
+            </button>
+            <button class="uppercase bg-[#e84721] py-2 px-5 rounded text-white font-medium"
+                (click)="closeModal()">Close</button>
+        </div>
+    </div>
+</div>

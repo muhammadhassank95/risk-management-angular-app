@@ -1,0 +1,63 @@
+
+<!-- Modal content -->
+<div class="w-[1000px] bg-white rounded-lg">
+  <!-- Modal header -->
+  <div class="header">
+    <div class="title">{{data.title}}</div>
+    <!-- <button (click)="closeModalClicked()" type="button" class="flex align-middle" data-modal-toggle="defaultModal">
+      <mat-icon matTooltip="Close Modal" class="text-white text-center" >close</mat-icon>
+    </button> -->
+  </div>
+  <!-- Modal body -->
+  <div class="p-6 space-y-6">
+    <form class="customForm" [formGroup]="formGroup">
+      <mat-form-field class="field" appearance="outline">
+        <mat-label>Risk Title</mat-label>
+        <input matInput placeholder="" value="" formControlName="name">
+      </mat-form-field>
+      <mat-form-field  appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea class="h-[150px]" matInput placeholder="" formControlName="description"></textarea>
+      </mat-form-field>
+
+      <div class="flex justify-start">
+        <mat-form-field appearance="outline" class="w-[200px]">
+          <mat-label>Risk Likelihood %</mat-label>
+          <input matInput placeholder="" formControlName="likelihood" numericOnly>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-[200px] mx-3">
+          <mat-label>Opportunity Outcome</mat-label>
+          <input matInput placeholder="" formControlName="outcome" numericOnly>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-[90px] mr-3" >
+          <mat-label>Units</mat-label>
+          <mat-select formControlName="unit" [compareWith]="compareWithFunction">
+            <mat-option *ngFor="let group of units" [value]="group.value">{{group.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-[200px]" >
+          <mat-label>Lead Capability</mat-label>
+          <mat-select formControlName="group" [compareWith]="compareWithFunction">
+            <mat-option *ngFor="let group of groupList" [value]="group">{{group.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+  <!-- Modal footer -->
+  <div class="flex justify-end p-6 pt-0">
+    <button data-modal-toggle="defaultModal" type="button"
+      (click)="closeModalClicked()"
+      class="text-center bg-custom-tbr-red text-white py-2 px-4 mr-3 rounded uppercase cursor-pointer">
+      cancel
+    </button>
+    <button data-modal-toggle="defaultModal" type="button" [disabled]="!formGroup.valid"
+      (click)="createProposal()"
+      class="text-center bg-custom-tbr-green text-white py-2 px-4 rounded uppercase cursor-pointer"
+      [ngClass]="{ 'bg-custom-primary-disabled': !formGroup.valid }">
+      {{ data.isEdit ? 'update' : 'submit' }}
+    </button>
+  </div>
+</div>
+
+

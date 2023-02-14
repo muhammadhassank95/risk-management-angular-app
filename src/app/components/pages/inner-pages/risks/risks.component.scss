@@ -1,0 +1,55 @@
+.risks-container{
+  height: calc(100vh - 200px);
+
+  .ql-container.ql-snow{
+    border: none;
+  }
+  .select-dropdown.mat-form-field-appearance-fill .mat-form-field-flex {
+    border: none;
+    padding-left: 2px;
+    .mat-select-value-text {
+      font-weight: 900;
+      font-size: 1.25rem; /* 20px */
+      line-height: 1.75rem; /* 28px */
+      color: #707070;
+      text-transform: uppercase;
+    }
+
+    .mat-form-field-type-mat-select:not(.mat-form-field-disabled) .mat-form-field-flex {
+      padding: 0;
+    }
+
+    .mat-form-field {
+      width: 200px;
+    }
+    .mat-select-arrow-wrapper{
+      height: 2px !important;
+    }
+
+    .mat-select-value {
+      width: fit-content !important;
+    }
+    .mat-form-field-wrapper {
+      padding-bottom: 0;
+    }
+  }
+
+  .cdk-drag-animating {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+
+  .risk-list.cdk-drop-list-dragging .risk-box:not(.cdk-drag-placeholder) {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+  
+  ::-webkit-scrollbar {
+    visibility: hidden;
+    width: 0px;
+  }
+}
+.add-update-modal {
+  mat-dialog-container {
+      border-radius: 7px;
+  }
+}
+

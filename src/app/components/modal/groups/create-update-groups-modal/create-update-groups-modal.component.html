@@ -1,0 +1,31 @@
+<!-- Main modal -->
+<div
+    class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full justify-center items-center flex">
+    <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
+        <div class="relative bg-white rounded-lg shadow">
+            <div class="header">
+                <div class="title">{{data.title}}</div>
+            </div>
+            <form class="customForm" [formGroup]="createGroupForm">
+                <div class="pt-6 px-6">
+                    <mat-form-field class="field" appearance="outline">
+                        <mat-label>Capability Name</mat-label>
+                        <input matInput placeholder="" formControlName="name">
+                    </mat-form-field>
+                </div>
+                <div class="flex justify-end p-6 pt-0">
+                    <button data-modal-toggle="defaultModal" type="button"
+                      (click)="closeModalClicked()"
+                      class="text-center bg-custom-tbr-red text-white py-2 px-4 mr-3 rounded uppercase cursor-pointer">
+                      cancel
+                    </button>
+                    <button data-modal-toggle="defaultModal" type="button"
+                        (click)="data.isAdd ? createGroup() : updateGroup()"
+                        class="text-center bg-custom-tbr-green text-white py-2 px-4 rounded uppercase cursor-pointer">
+                        {{ data.isAdd ? 'Create' : 'Update'}}
+                    </button>
+                  </div>
+            </form>
+        </div>
+    </div>
+</div>

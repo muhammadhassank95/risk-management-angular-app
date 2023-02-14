@@ -1,0 +1,40 @@
+<div class="w-[620px] flex flex-col">
+  <div class="header">
+      <div class="title">Risk Managers for {{ data.selectedSiteDatas.name }}</div>
+  </div>
+    <div class="p-4 text-center flex flex-col">
+        <form class="pb-4 px-4">
+          <mat-form-field class="example-chip-list w-full">
+            <mat-chip-list #chipList>
+              <mat-chip
+                *ngFor="let user of selectedUsers"
+                [selectable]="selectable"
+                [removable]="removable"
+                (removed)="remove(user)">
+                {{user.name}}
+                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+              </mat-chip>
+              <input
+                placeholder="Risk Managers"
+                #riskManagerInput
+                [formControl]="riskManagerCtrl"
+                [matAutocomplete]="auto"
+                [matChipInputFor]="chipList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                [matChipInputAddOnBlur]="addOnBlur"
+                (matChipInputTokenEnd)="add($event)">
+            </mat-chip-list>
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+              <mat-option *ngFor="let riskManager of filteredRiskManager | async" [value]="riskManager">
+                {{riskManager.name}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          </form>
+          
+        <div class="flex justify-end">
+            <button class="mr-2 uppercase bg-custom-tbr-red py-2 px-5 rounded text-white font-medium" (click)="cancel()">Cancel</button>
+            <button class="uppercase bg-custom-tbr-green py-2 px-5 rounded text-white font-medium" (click)="updateCommunity()">Update</button>
+        </div>
+    </div>
+</div>

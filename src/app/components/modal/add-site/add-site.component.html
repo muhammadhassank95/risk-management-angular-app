@@ -1,0 +1,34 @@
+<div class="w-96 flex flex-col">
+    <div class="header">
+        <div class="title">{{data.title}}</div>
+        <button *ngIf="!data.isAdd" (click)="cancel()" type="button" class="flex align-middle" data-modal-toggle="defaultModal">
+            <mat-icon matTooltip="Close Modal" class="text-white text-center" >close</mat-icon>
+        </button>
+    </div>
+    <div [formGroup]="formGroup" class="p-4">
+        <div class="flex flex-row w-full pb-4 px-4">
+            <mat-form-field class="field" appearance="outline" class="w-full">
+                <mat-label>Site Name</mat-label>
+                <input matInput placeholder="" formControlName="name">
+            </mat-form-field>
+        </div>
+        <div class="flex justify-between">
+            <input [(colorPicker)]="color" [style.background]="color" class="w-7 h-7 rounded-full cursor-pointer" />
+            <div class="text-right">
+                <button (click)="deleteSite()" *ngIf="!data.isAdd"
+                    class="mr-2 uppercase bg-[#e84721] py-2 px-5 rounded text-white font-medium">Delete</button>
+    
+                <button
+                    *ngIf="data.isAdd"
+                    class="mr-2 uppercase bg-[#e84721] py-2 px-5 rounded text-white font-medium"
+                    (click)="cancel()"
+                >Cancel</button>
+                <button
+                    (click)="data.isAdd ? addSite() : updateSite()"
+                    class="uppercase bg-[#89b555] py-2 px-5 rounded text-white font-medium"
+                >{{ data.isAdd ? 'Create' : 'Update' }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

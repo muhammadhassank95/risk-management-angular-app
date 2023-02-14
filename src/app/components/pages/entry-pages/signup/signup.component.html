@@ -1,0 +1,227 @@
+<div class="signup-container flex flex-col">
+    <div class="header-container flex justify-between items-center bg-custom-secondary px-2 sm:px-4 py-2 border-b my-4 mx-4 rounded">
+        <img class="h-[50px]" src="assets/images/login/tbrLogo.png" alt="">
+    </div>
+    <div *ngIf="!isUserSignedup; else signedUp" class="main flex grow cm-fom mx-4 mb-2">
+        <div class="incard flex grow border-2 border-custom-secondary rounded-lg flex-md-nowrap overflow-hidden">
+            <div class="flex-1 border-r-2 border-custom-secondary p-4 h-full">
+                <div class="font-medium text-[20px] text-custom-tbr-gray mb-6">Create New Account</div>
+                <form
+                    class="w-full max-w-2xl"
+                    [formGroup]="createAccountFormGroup"
+                >
+                    <span formGroupName="sendCodeSubGroup">
+                        <div class="flex flex-wrap -mx-3 mb-6">
+                            <div class="w-full md:w-1/2 px-3">
+                                <div
+                                    class="field px-3 py-1"
+                                    [ngClass]="{'use-for-required': !createAccountFormGroup.get('sendCodeSubGroup')?.value?.fullName}"
+                                >
+                                    <label
+                                        class="block w-full uppercase tracking-wide   text-xs font-bold mb-2"
+                                        for="grid-last-name"
+                                    >Full Name</label>
+                                    <input
+                                        type="text"
+                                        placeholder="Enter Full Name"
+                                        formControlName="fullName"
+                                        class="appearance-none block w-full focus:outline-none focus:bg-white"
+                                    >
+                                </div>
+                                <div
+                                    *ngIf="!createAccountFormGroup.get('sendCodeSubGroup')?.value?.fullName"
+                                    class="activated-text pl-4 pt-1 text-red-500 text-right"
+                                >Required Field</div>
+                            </div>
+                            <div class="w-full md:w-1/2 px-3">
+                                <div
+                                    class="field px-3 py-1"
+                                    [ngClass]="{'use-for-required': !createAccountFormGroup.get('sendCodeSubGroup')?.value?.email}"
+                                >
+                                    <label
+                                        class="block w-full uppercase tracking-wide   text-xs font-bold mb-2"
+                                        for="grid-last-name"
+                                    >Email</label>
+                                    <input
+                                        type="email"
+                                        formControlName="email"
+                                        placeholder="Enter Email"
+                                        class="appearance-none block w-full focus:outline-none focus:bg-white"
+                                    >
+                                </div>
+                                <div
+                                    *ngIf="!createAccountFormGroup.get('sendCodeSubGroup')?.value?.email"
+                                    class="activated-text pl-4 pt-1 text-red-500 text-right"
+                                >Required Field</div>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap -mx-3 mb-0">
+                            <div class="w-full md:w-1/2 px-3">
+                                <div
+                                    class="field px-3 py-1"
+                                    [ngClass]="{'use-for-required': !createAccountFormGroup.get('sendCodeSubGroup')?.value?.company}"
+                                >
+                                    <label class="block w-full uppercase tracking-wide   text-xs font-bold mb-2"
+                                        for="grid-last-name"
+                                    >Company</label>
+                                    <input
+                                        type="text"
+                                        formControlName="company"
+                                        placeholder="Enter Company"
+                                        class="appearance-none block w-full focus:outline-none focus:bg-white"
+                                    >
+                                </div>
+                                <div
+                                    *ngIf="!createAccountFormGroup.get('sendCodeSubGroup')?.value?.company"
+                                    class="activated-text pl-4 pt-1 text-red-500 text-right"
+                                >Required Field</div>
+                            </div>
+                            <div class="w-full md:w-1/2 px-3">
+                                <div class="field px-3 py-1">
+                                    <label class="block w-full uppercase tracking-wide   text-xs font-bold mb-2"
+                                        for="grid-last-name">
+                                        Position
+                                    </label>
+                                    <input
+                                        type="text"
+                                        formControlName="position"
+                                        placeholder="Enter Position"
+                                        class="appearance-none block w-full focus:outline-none focus:bg-white"
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                    </span>
+                    <div class="flex justify-end mb-6">
+                        <button
+                            type="button"
+                            (click)="sendCodeClicked()"
+                            class="cm-btn"
+                        >SEND CODE</button>
+                    </div>
+                    <span
+                        *ngIf="showValidateSubGroup"
+                        formGroupName="validateSubGroup"
+                    >
+                        <div class="flex flex-wrap -mx-3 mb-0 justify-end">
+                            <div class="w-full md:w-1/2 px-3">
+                                <div
+                                    class="field px-3 py-1 mb-4"
+                                    [ngClass]="{'use-for-required': !createAccountFormGroup.get('validateSubGroup')?.value?.code}"
+                                >
+                                    <label
+                                        for="grid-last-name"
+                                        class="block w-full uppercase tracking-wide   text-xs font-bold mb-2"
+                                    >Code</label>
+                                    <input
+                                        formControlName="code"
+                                        placeholder="Enter Code"
+                                        class="appearance-none block w-full focus:outline-none focus:bg-white"
+                                    >
+                                </div>
+                                <div
+                                    *ngIf="!createAccountFormGroup.get('validateSubGroup')?.value?.code"
+                                    class="activated-text pl-4 pt-1 text-red-500 text-right"
+                                >Required Field</div>
+                            </div>
+                        </div>
+                        <div class="flex justify-end mb-6">
+                            <button
+                                type="button"
+                                (click)="onValidateCodeClicked()"
+                                class="cm-btn"
+                                [disabled]="createAccountFormGroup.controls.validateSubGroup.status === 'INVALID'"
+                            >VALIDATE</button>
+                        </div>
+                    </span>
+                    <span *ngIf="showPasswordSubGroup" formGroupName="passwordSubGroup" class="flex flex-col">
+                        <div class="flex flex-wrap -mx-3 mb-0">
+                            <div class="w-full md:w-1/2 px-3">
+                                <div
+                                    class="field px-3 py-1 mb-4"
+                                    [ngClass]="{'use-for-required': !createAccountFormGroup.get('passwordSubGroup')?.value?.password}"
+                                >
+                                    <label
+                                        for="grid-last-name"
+                                        class="block w-full uppercase tracking-wide  text-xs font-bold mb-2"
+                                    >Password</label>
+                                    <span class="flex flex-row">
+                                        <input
+                                            formControlName="password"
+                                            [type]="hide ? 'password' : 'text'"
+                                            placeholder="Enter Password"
+                                            class="appearance-none block w-full focus:outline-none focus:bg-white"
+                                        >
+                                        <mat-icon
+                                            mattSuffix
+                                            (click)="hide = !hide"
+                                            class="vis-icon"
+                                        >{{ hide ? 'visibility_off' : 'visibility' }}
+                                        </mat-icon>
+                                    </span>
+                                </div>
+
+                                <div
+                                    *ngIf="!createAccountFormGroup.get('passwordSubGroup')?.value?.password"
+                                    class="activated-text pl-4 pt-1 text-red-500 text-right"
+                                >Required Field</div>
+                            </div>
+                            <div class="w-full md:w-1/2 px-3">
+                                <div
+                                    class="field px-3 py-1 mb-4"
+                                    [ngClass]="{'use-for-required': !createAccountFormGroup.get('passwordSubGroup')?.value?.confirmPassword}"
+                                >
+                                    <label
+                                        for="grid-last-name"
+                                        class="block w-full uppercase tracking-wide  text-xs font-bold mb-2"
+                                    >Confirm Password</label>
+                                    <span class="flex flex-row">
+                                        <input
+                                            formControlName="confirmPassword"
+                                            [type]="hideConfirmPassword ? 'password' : 'text'"
+                                            placeholder="Enter Password Again"
+                                            class="appearance-none block w-full focus:outline-none focus:bg-white"
+                                        >
+                                        <mat-icon
+                                            mattSuffix
+                                            (click)="hideConfirmPassword = !hideConfirmPassword"
+                                            class="vis-icon"
+                                        >{{ hideConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                                    </span>
+                                </div>
+                                <div
+                                    *ngIf="!createAccountFormGroup.get('passwordSubGroup')?.value?.confirmPassword"
+                                    class="activated-text pl-4 pt-1 text-red-500 text-right"
+                                >Required Field</div>
+                            </div>
+                        </div>
+                        <button (click)="onAccountCreationSaveClicked()" class="cm-btn w-fit self-end">Create</button>
+                    </span>
+                </form>
+                
+            </div>   
+            <div class="flex-1 flex flex-col">
+                <iframe
+                    class="flex grow"
+                    src="https://app.termly.io/document/terms-of-use-for-saas/2f9c0c42-e074-44f1-a97e-66de4525bb88">
+                </iframe>
+            </div>
+            
+        </div>
+    </div>
+
+    <ng-template #signedUp>
+        <div class="flex grow justify-center items-center">
+            <div class="flex flex-col w-3/5">
+                <span class="text-gray-600 text-2xl font-bold mb-4">Check Your Email Now!</span>
+                <span class="text-gray-600 mb-4">An email verification link has been sent to your given email address.
+                    Please verify and then continue to complete the sign up process.</span>
+                <button mat-button class="bg-custom-secondary text-white rounded mb-4 py-2 text-base w-1/3">Email
+                    Check</button>
+            </div>
+        </div>
+    </ng-template>
+    <div class="flex w-[100vw] text-gray-400 text-xs p-2">
+        <div class="flex justify-center grow whitespace-nowrap px-3 ">COPYRIGHT 2022 | TOP BUSINESS RISK | AN MFG ANALYTIC APP</div>
+    </div>
+</div>
